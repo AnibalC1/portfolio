@@ -949,11 +949,18 @@ a:hover {
    Reveal Animations
    ================================================================ */
 
+/* Progressive Enhancement: Content visible by default, enhanced with JS */
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(40px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity var(--duration-slow) var(--ease),
               transform var(--duration-slow) var(--ease);
+}
+
+/* JS-enhanced reveal (add .js-loaded class to body when JS runs) */
+.js-loaded [data-reveal] {
+  opacity: 0;
+  transform: translateY(40px);
 }
 
 [data-reveal][data-revealed] {
