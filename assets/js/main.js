@@ -447,7 +447,7 @@
         });
 
         if (response.ok) {
-          alert("Message sent successfully! We'll get back to you soon.");
+          alert('Message sent successfully! We\'ll get back to you soon.');
           contactForm.reset();
         } else {
           alert('Failed to send message. Please try again or email directly.');
