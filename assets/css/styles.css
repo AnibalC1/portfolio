@@ -543,6 +543,13 @@ a:hover {
   transition: transform var(--duration-fast) var(--ease);
 }
 
+.cta-pill.is-disabled {
+  background: var(--gray-800);
+  color: var(--gray-400, #9ca3af);
+  cursor: default;
+  opacity: 0.85;
+}
+
 /* ================================================================
    Section Headers
    ================================================================ */
