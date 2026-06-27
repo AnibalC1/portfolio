@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Anibal Cabral — Digital Design & Development. We build accessible, high-performance websites with zero dependencies.">
+  <meta name="author" content="Anibal Cabral">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Anibal Cabral — Digital Design & Development">
+  <meta property="og:description" content="We build accessible, high-performance websites with zero dependencies. Pure HTML, CSS, and JavaScript.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://anibalcabral.com">
+
+  <title>Anibal Cabral — Digital Design & Development</title>
+
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="icon" href="assets/images/brand/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+  <!-- Skip Links (Accessibility) -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- Loading Animation -->
+  <div class="app-loader" data-loader aria-hidden="true">
+    <div class="loader-stage">
+      <svg class="loader-mark" viewBox="0 0 64 64" aria-hidden="true">
+        <path class="loader-arc loader-arc-purple" d="M32,9 A23,23 0 0,1 9,32"/>
+        <path class="loader-arc loader-arc-aqua" d="M32,55 A23,23 0 0,1 55,32"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header" data-header>
+    <div class="container">
+      <a href="/" class="logo" aria-label="Anibal Cabral Home">
+        <span class="logo-text">AC</span>
+      </a>
+
+      <nav class="main-nav" data-nav>
+        <button
+          class="nav-toggle"
+          data-nav-toggle
+          aria-expanded="false"
+          aria-controls="nav-menu"
+          aria-label="Toggle navigation menu"
+        >
+          <span class="nav-toggle-icon" aria-hidden="true"></span>
+        </button>
+
+        <ul class="nav-menu" id="nav-menu" data-nav-menu>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero hero--portfolio">
+      <div class="cursor-spot" data-cursor aria-hidden="true"></div>
+
+      <div class="container">
+        <h1 class="hero-title" data-letters>
+          <span class="ht-line">Anibal Cabral</span>
+          <span class="ht-line gradient-text">Digital Design & Development</span>
+        </h1>
+
+        <p class="hero-lead" data-reveal>
+          We build accessible, high-performance websites with zero dependencies.
+          Pure HTML, CSS, and JavaScript — no frameworks, no compromises.
+        </p>
+
+        <div class="hero-cta" data-reveal>
+          <a href="#work" class="cta-pill primary" data-magnetic>
+            View Our Work
+          </a>
+          <a href="#contact" class="cta-pill secondary" data-magnetic>
+            Start a Project
+          </a>
+        </div>
+      </div>
+
+      <div class="scroll-indicator" data-reveal>
+        <span>Scroll to explore</span>
+        <div class="scroll-arrow" aria-hidden="true">↓</div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="work" class="projects">
+      <div class="container">
+        <header class="section-head">
+          <span class="overline">Portfolio</span>
+          <h2 class="title-lg" data-letters>
+            <span class="ht-line">Featured Projects</span>
+          </h2>
+          <p class="intro">
+            Exceptional projects showcasing range, depth, and measurable results.
+          </p>
+        </header>
+
+        <div class="project-grid">
+
+          <!-- Project 1: Bridgewell -->
+          <article class="project-card" data-tilt data-reveal>
+            <figure class="project-visual">
+              <img
+                src="assets/images/projects/bridgewell-hero.jpg"
+                alt="Bridgewell Health Service website homepage"
+                loading="lazy"
+                width="800"
+                height="600"
+              >
+              <div class="project-overlay">
+                <a href="case-studies/bridgewell.html" class="cta-pill">
+                  View Case Study <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </figure>
+
+            <div class="project-meta">
+              <h3 class="project-title">Bridgewell Health Service</h3>
+              <p class="project-type">Healthcare • Accessibility-First</p>
+              <ul class="project-tags">
+                <li>Zero Dependencies</li>
+                <li>WCAG AA</li>
+                <li>Progressive Enhancement</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Project 2: Hospital Intranet -->
+          <article class="project-card" data-tilt data-reveal>
+            <figure class="project-visual">
+              <img
+                src="assets/images/projects/hospital-intranet-hero.jpg"
+                alt="Hospital intranet dashboard interface"
+                loading="lazy"
+                width="800"
+                height="600"
+              >
+              <div class="project-overlay">
+                <a href="case-studies/hospital-intranet.html" class="cta-pill">
+                  View Case Study <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </figure>
+
+            <div class="project-meta">
+              <h3 class="project-title">Hospital Intranet Redesign</h3>
+              <p class="project-type">Enterprise • SharePoint SPFx</p>
+              <ul class="project-tags">
+                <li>14 Sites Unified</li>
+                <li>Custom Dark Theme</li>
+                <li>SPFx Components</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Project 3: VitalEdge Gym (Placeholder) -->
+          <article class="project-card" data-tilt data-reveal>
+            <figure class="project-visual">
+              <img
+                src="assets/images/projects/vitaledge-hero.jpg"
+                alt="VitalEdge Gym website and AI coaching platform"
+                loading="lazy"
+                width="800"
+                height="600"
+              >
+              <div class="project-overlay">
+                <a href="case-studies/vitaledge.html" class="cta-pill">
+                  Coming Soon <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </figure>
+
+            <div class="project-meta">
+              <h3 class="project-title">VitalEdge Gym + AI Coaching</h3>
+              <p class="project-type">Fitness • AI Integration</p>
+              <ul class="project-tags">
+                <li>Hybrid Platform</li>
+                <li>AI-Powered Coaching</li>
+                <li>In Development</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Project 4: Crypto Infrastructure (Placeholder) -->
+          <article class="project-card" data-tilt data-reveal>
+            <figure class="project-visual">
+              <img
+                src="assets/images/projects/crypto-infra-hero.jpg"
+                alt="Cryptocurrency trading infrastructure dashboard"
+                loading="lazy"
+                width="800"
+                height="600"
+              >
+              <div class="project-overlay">
+                <a href="case-studies/crypto-infrastructure.html" class="cta-pill">
+                  View Case Study <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </figure>
+
+            <div class="project-meta">
+              <h3 class="project-title">Crypto Trading Infrastructure</h3>
+              <p class="project-type">DeFi • High-Performance Systems</p>
+              <ul class="project-tags">
+                <li>Real-Time Data</li>
+                <li>Multi-Agent Orchestration</li>
+                <li>Production Scale</li>
+              </ul>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="container">
+        <header class="section-head">
+          <span class="overline">Philosophy</span>
+          <h2 class="title-lg" data-letters>
+            <span class="ht-line">We Build for Longevity</span>
+          </h2>
+        </header>
+
+        <div class="about-content">
+          <div class="about-principle" data-reveal>
+            <h3>Zero Dependencies</h3>
+            <p>
+              No frameworks. No build tools. No npm packages breaking six months later.
+              Pure HTML, CSS, and JavaScript that works everywhere, forever.
+            </p>
+          </div>
+
+          <div class="about-principle" data-reveal>
+            <h3>Accessibility First</h3>
+            <p>
+              WCAG AA minimum. Semantic HTML. ARIA labels. Keyboard navigation.
+              Reduced motion support. Screen reader tested. Everyone deserves access.
+            </p>
+          </div>
+
+          <div class="about-principle" data-reveal>
+            <h3>Performance Obsessed</h3>
+            <p>
+              Lazy loading. Passive listeners. GPU acceleration. RequestAnimationFrame.
+              Instant loads. Smooth animations. Lighthouse 98+ scores.
+            </p>
+          </div>
+
+          <div class="about-principle" data-reveal>
+            <h3>Progressive Enhancement</h3>
+            <p>
+              Works without JavaScript. Enhanced with it. Mobile-first responsive.
+              Clamp-based spacing. Breakpoint-free design. Future-proof architecture.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="process">
+      <div class="container">
+        <header class="section-head">
+          <span class="overline">Our Approach</span>
+          <h2 class="title-lg" data-letters>
+            <span class="ht-line">From Discovery to Launch</span>
+          </h2>
+        </header>
+
+        <div class="process-timeline">
+          <div class="phase" data-reveal>
+            <div class="phase-number" data-counter data-target="1">1</div>
+            <h3>Discovery & Research</h3>
+            <p>
+              Client interviews, competitive analysis, accessibility audit,
+              user research. We understand the problem before touching code.
+            </p>
+          </div>
+
+          <div class="phase" data-reveal>
+            <div class="phase-number" data-counter data-target="2">2</div>
+            <h3>Design System</h3>
+            <p>
+              Brand palette, custom properties, component library,
+              accessibility-first patterns. Scalable, maintainable, beautiful.
+            </p>
+          </div>
+
+          <div class="phase" data-reveal>
+            <div class="phase-number" data-counter data-target="3">3</div>
+            <h3>Development</h3>
+            <p>
+              Pure HTML5/CSS3/ES6+. Zero frameworks. Progressive enhancement.
+              Mobile-first responsive. Performance optimized from day one.
+            </p>
+          </div>
+
+          <div class="phase" data-reveal>
+            <div class="phase-number" data-counter data-target="4">4</div>
+            <h3>Testing & Launch</h3>
+            <p>
+              WCAG AA compliance testing, cross-browser QA, performance optimization,
+              screen reader testing, security audit, deployment.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <header class="section-head">
+          <span class="overline">Get in Touch</span>
+          <h2 class="title-lg" data-letters>
+            <span class="ht-line">Let's Build Something</span>
+            <span class="ht-line gradient-text">Exceptional</span>
+          </h2>
+        </header>
+
+        <div class="contact-content">
+          <div class="contact-info" data-reveal>
+            <p class="contact-lead">
+              Ready to start a project? Have a question about our process?
+              We'd love to hear from you.
+            </p>
+
+            <div class="contact-methods">
+              <div class="contact-method">
+                <h3>Email</h3>
+                <a href="mailto:anibal.cabral@uhsinc.com">anibal.cabral@uhsinc.com</a>
+              </div>
+
+              <div class="contact-method">
+                <h3>Phone</h3>
+                <a href="tel:+18573640579">857.364.0579</a>
+              </div>
+
+              <div class="contact-method">
+                <h3>Location</h3>
+                <p>Boston, Massachusetts</p>
+              </div>
+            </div>
+          </div>
+
+          <form class="contact-form" data-reveal action="/contact" method="POST">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                aria-required="true"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                aria-required="true"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="project">Project Type</label>
+              <select id="project" name="project">
+                <option value="new-website">New Website</option>
+                <option value="redesign">Website Redesign</option>
+                <option value="enterprise">Enterprise Application</option>
+                <option value="ecommerce">E-Commerce</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                required
+                aria-required="true"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="cta-pill primary" data-magnetic>
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="logo-text">AC</div>
+          <p>Digital Design & Development</p>
+        </div>
+
+        <nav class="footer-nav">
+          <ul>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-meta">
+          <p>&copy; 2026 Anibal Cabral. All rights reserved.</p>
+          <p>Built with zero dependencies. Pure HTML, CSS, JavaScript.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Section Navigation Rail -->
+  <nav class="section-rail" data-rail aria-label="Section navigation">
+    <a href="#hero" class="rail-dot" data-rail-dot="hero" aria-label="Hero section">
+      <span class="rail-label">Top</span>
+    </a>
+    <a href="#work" class="rail-dot" data-rail-dot="work" aria-label="Work section">
+      <span class="rail-label">Work</span>
+    </a>
+    <a href="#about" class="rail-dot" data-rail-dot="about" aria-label="About section">
+      <span class="rail-label">About</span>
+    </a>
+    <a href="#process" class="rail-dot" data-rail-dot="process" aria-label="Process section">
+      <span class="rail-label">Process</span>
+    </a>
+    <a href="#contact" class="rail-dot" data-rail-dot="contact" aria-label="Contact section">
+      <span class="rail-label">Contact</span>
+    </a>
+  </nav>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

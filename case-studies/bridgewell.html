@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bridgewell Health Service case study — Building an accessible, zero-dependency healthcare website">
+  <title>Case Study: Bridgewell Health Service | Anibal Cabral</title>
+
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="icon" href="../assets/images/brand/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" data-header>
+    <div class="container">
+      <a href="../index.html" class="logo" aria-label="Anibal Cabral Home">
+        <span class="logo-text">AC</span>
+      </a>
+
+      <nav class="main-nav" data-nav>
+        <button
+          class="nav-toggle"
+          data-nav-toggle
+          aria-expanded="false"
+          aria-controls="nav-menu"
+          aria-label="Toggle navigation menu"
+        >
+          <span class="nav-toggle-icon" aria-hidden="true"></span>
+        </button>
+
+        <ul class="nav-menu" id="nav-menu" data-nav-menu>
+          <li><a href="../index.html#work">Work</a></li>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#process">Process</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Case Study Hero -->
+    <section class="case-hero section-gap">
+      <div class="container">
+        <span class="overline">Case Study</span>
+        <h1 class="title-lg" data-letters>
+          <span class="ht-line">Bridgewell Health Service</span>
+        </h1>
+        <p class="hero-lead">
+          Building an accessible, zero-dependency website for a psychiatric healthcare facility
+        </p>
+
+        <dl class="case-meta">
+          <div data-reveal>
+            <dt>Client</dt>
+            <dd>Bridgewell Health Service</dd>
+          </div>
+          <div data-reveal>
+            <dt>Industry</dt>
+            <dd>Healthcare / Psychiatric Services</dd>
+          </div>
+          <div data-reveal>
+            <dt>Services</dt>
+            <dd>Web Design, Development, Accessibility</dd>
+          </div>
+          <div data-reveal>
+            <dt>Year</dt>
+            <dd>2026</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Challenge Section -->
+    <section class="case-section section-gap">
+      <div class="container">
+        <h2 data-reveal>The Challenge</h2>
+        <p data-reveal>
+          Build a professional healthcare website with strict accessibility requirements,
+          instant load times, and zero external dependencies for maximum reliability.
+          The site needed to serve patients, families, and staff while meeting WCAG AA
+          compliance standards and working flawlessly on all devices and browsers.
+        </p>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="case-section process-timeline section-gap" style="background: var(--bg-secondary);">
+      <div class="container">
+        <h2 style="text-align: center; margin-bottom: 4rem;" data-reveal>Our Process</h2>
+
+        <div class="phase" data-reveal>
+          <div class="phase-number" data-counter data-target="1">1</div>
+          <div>
+            <h3>Discovery & Research</h3>
+            <p>
+              Client interviews, competitive analysis, accessibility audit of existing site,
+              user research with patients and staff. Identified key user needs and technical
+              requirements.
+            </p>
+          </div>
+        </div>
+
+        <div class="phase" data-reveal>
+          <div class="phase-number" data-counter data-target="2">2</div>
+          <div>
+            <h3>Design System</h3>
+            <p>
+              Created brand palette (purple #A877FE, aqua #5AEAFE), established CSS custom
+              properties for colors, spacing, and typography. Built component library with
+              accessibility-first patterns.
+            </p>
+          </div>
+        </div>
+
+        <div class="phase" data-reveal>
+          <div class="phase-number" data-counter data-target="3">3</div>
+          <div>
+            <h3>Development</h3>
+            <p>
+              Pure HTML5/CSS3/ES6+ JavaScript. Zero frameworks, zero build tools, zero npm
+              packages. Progressive enhancement, mobile-first responsive design, semantic
+              HTML for accessibility.
+            </p>
+          </div>
+        </div>
+
+        <div class="phase" data-reveal>
+          <div class="phase-number" data-counter data-target="4">4</div>
+          <div>
+            <h3>Testing & Launch</h3>
+            <p>
+              WCAG AA compliance testing with screen readers (NVDA, JAWS, VoiceOver),
+              cross-browser QA, performance optimization, security audit, final deployment.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="case-section case-results section-gap">
+      <div class="container">
+        <h2 style="text-align: center; margin-bottom: 3rem;" data-reveal>The Results</h2>
+
+        <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 3rem; margin-bottom: 4rem;">
+          <div class="metric" style="text-align: center;" data-reveal>
+            <div class="metric-value" style="font-size: var(--text-6xl); font-weight: 700; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;" data-counter data-target="100" data-suffix="%">100%</div>
+            <div class="metric-label" style="color: var(--text-secondary); margin-top: 1rem;">WCAG AA Compliance</div>
+          </div>
+
+          <div class="metric" style="text-align: center;" data-reveal>
+            <div class="metric-value" style="font-size: var(--text-6xl); font-weight: 700; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;" data-counter data-target="0">0</div>
+            <div class="metric-label" style="color: var(--text-secondary); margin-top: 1rem;">External Dependencies</div>
+          </div>
+
+          <div class="metric" style="text-align: center;" data-reveal>
+            <div class="metric-value" style="font-size: var(--text-6xl); font-weight: 700; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;" data-counter data-target="3451">3,451</div>
+            <div class="metric-label" style="color: var(--text-secondary); margin-top: 1rem;">Total Lines of Code</div>
+          </div>
+
+          <div class="metric" style="text-align: center;" data-reveal>
+            <div class="metric-value" style="font-size: var(--text-6xl); font-weight: 700; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;" data-counter data-target="98">98</div>
+            <div class="metric-label" style="color: var(--text-secondary); margin-top: 1rem;">Lighthouse Performance Score</div>
+          </div>
+        </div>
+
+        <div class="case-testimonial" style="max-width: 800px; margin-inline: auto; text-align: center;" data-reveal>
+          <blockquote style="font-size: var(--text-xl); font-style: italic; color: var(--text-secondary); margin-bottom: 1.5rem;">
+            "The team delivered an exceptional website that exceeded our accessibility
+            requirements while maintaining beautiful design. Load times are instant,
+            and our patients find it incredibly easy to navigate."
+          </blockquote>
+          <cite style="color: var(--text-muted);">— Bridgewell Health Service</cite>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;" data-reveal>
+          <a href="https://github.com/AnibalC1/bridgewell" class="cta-pill primary" data-magnetic>
+            View Source Code on GitHub →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="case-section tech-stack section-gap" style="background: var(--bg-secondary);">
+      <div class="container">
+        <h2 style="text-align: center; margin-bottom: 3rem;" data-reveal>Technology Stack</h2>
+
+        <ul class="tech-list" style="max-width: 800px; margin-inline: auto; display: grid; gap: 1.5rem; list-style: none;">
+          <li style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border-color);" data-reveal>
+            <strong style="color: var(--aqua);">Frontend:</strong>
+            <span style="color: var(--text-secondary);"> HTML5, CSS3 (custom properties, backdrop-filter, grid, flexbox, animations)</span>
+          </li>
+          <li style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border-color);" data-reveal>
+            <strong style="color: var(--aqua);">JavaScript:</strong>
+            <span style="color: var(--text-secondary);"> ES6+ Vanilla JS, IntersectionObserver, requestAnimationFrame, passive event listeners</span>
+          </li>
+          <li style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border-color);" data-reveal>
+            <strong style="color: var(--aqua);">Accessibility:</strong>
+            <span style="color: var(--text-secondary);"> ARIA labels, semantic HTML, keyboard navigation, skip links, reduced motion support</span>
+          </li>
+          <li style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border-color);" data-reveal>
+            <strong style="color: var(--aqua);">Performance:</strong>
+            <span style="color: var(--text-secondary);"> Lazy loading, GPU acceleration, no build tools, instant page loads</span>
+          </li>
+          <li style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border-color);" data-reveal>
+            <strong style="color: var(--aqua);">Design System:</strong>
+            <span style="color: var(--text-secondary);"> CSS variables, mobile-first responsive, component-based architecture</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Next Project CTA -->
+    <section class="case-section next-project section-gap">
+      <div class="container" style="text-align: center;">
+        <a href="hospital-intranet.html" class="next-project-link" style="display: inline-block; padding: 2rem; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border-color); transition: all var(--duration-base) var(--ease); text-decoration: none;" data-magnetic data-reveal>
+          <span class="overline">Next Project</span>
+          <h3 style="margin: 1rem 0;">Hospital Intranet Redesign</h3>
+          <span class="arrow" style="font-size: var(--text-3xl); color: var(--aqua);">→</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="logo-text">AC</div>
+          <p>Digital Design & Development</p>
+        </div>
+
+        <nav class="footer-nav">
+          <ul>
+            <li><a href="../index.html#work">Work</a></li>
+            <li><a href="../index.html#about">About</a></li>
+            <li><a href="../index.html#process">Process</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-meta">
+          <p>&copy; 2026 Anibal Cabral. All rights reserved.</p>
+          <p>Built with zero dependencies. Pure HTML, CSS, JavaScript.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
