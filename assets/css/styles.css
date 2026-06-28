@@ -180,6 +180,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1rem;
+  overflow-wrap: break-word;
 }
 
 h1 { font-size: var(--text-6xl); }
@@ -210,6 +211,9 @@ a:hover {
 .container {
   width: min(var(--container), 100% - var(--gutter) * 2);
   margin-inline: auto;
+  /* Prevent grid/flex min-content from forcing the container wider than the
+     viewport (the hero is a grid context, where min-width defaults to auto). */
+  min-width: 0;
 }
 
 .section-gap {
@@ -438,6 +442,14 @@ a:hover {
 
 .ht-line {
   display: block;
+}
+
+/* Per-word wrapper for the letter-by-letter animation. Real spaces between
+   words give the line break opportunities (so it wraps at word boundaries on
+   narrow screens) while each word stays intact. Kept inline so gradient-text
+   lines using background-clip:text still paint through the letters. */
+.ht-word {
+  display: inline;
 }
 
 .gradient-text {

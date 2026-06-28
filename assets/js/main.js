@@ -37,6 +37,25 @@
 
   const loader = document.querySelector('[data-loader]');
 
+  // Coordination: hold intro animations (hero letters / reveals) until the
+  // loader has started fading, otherwise they play hidden behind the overlay
+  // and look like they never ran.
+  let pageRevealed = false;
+  const readyQueue = [];
+  const whenReady = (callback) => {
+    if (pageRevealed) {
+      callback();
+    } else {
+      readyQueue.push(callback);
+    }
+  };
+  const flushReady = () => {
+    pageRevealed = true;
+    while (readyQueue.length) {
+      readyQueue.shift()();
+    }
+  };
+
   const hideLoader = () => {
     if (loader) {
       loader.setAttribute('data-loaded', '');
@@ -44,6 +63,7 @@
         loader.style.display = 'none';
       }, 500);
     }
+    flushReady();
   };
 
   // Hide loader after page fully loaded
@@ -52,6 +72,9 @@
   } else {
     window.addEventListener('load', hideLoader);
   }
+
+  // Safety net: never trap the intro animations if 'load' is slow/never fires.
+  setTimeout(flushReady, 3000);
 
   // ================================================================
   // Header Scroll Behavior
@@ -161,7 +184,7 @@
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.setAttribute('data-revealed', '');
+            whenReady(() => entry.target.setAttribute('data-revealed', ''));
             revealObserver.unobserve(entry.target);
           }
         });
@@ -234,14 +257,34 @@
       const text = line.textContent;
       line.textContent = '';
 
-      const chars = text.split('');
-      chars.forEach((char, charIndex) => {
-        const span = document.createElement('span');
-        span.textContent = char === ' ' ? '\u00A0' : char;
-        span.style.opacity = '0';
-        span.style.transform = 'translateY(20px)';
-        span.style.transition = `opacity 0.3s ease ${(charIndex * 0.03)}s, transform 0.3s ease ${(charIndex * 0.03)}s`;
-        line.appendChild(span);
+      // Group characters into per-word wrappers so the line can wrap at the
+      // spaces between words (keeping each word intact) while still animating
+      // letter-by-letter. Splitting into bare per-character spans removes every
+      // line-break opportunity, which forces the whole line onto one line and
+      // overflows narrow screens.
+      let charIndex = 0;
+      const words = text.split(' ');
+      words.forEach((word, wordIndex) => {
+        const wordSpan = document.createElement('span');
+        wordSpan.className = 'ht-word';
+
+        Array.from(word).forEach(char => {
+          const span = document.createElement('span');
+          span.textContent = char;
+          span.style.opacity = '0';
+          span.style.transform = 'translateY(20px)';
+          span.style.transition = `opacity 0.3s ease ${(charIndex * 0.03)}s, transform 0.3s ease ${(charIndex * 0.03)}s`;
+          wordSpan.appendChild(span);
+          charIndex += 1;
+        });
+
+        line.appendChild(wordSpan);
+
+        // Real (breakable) space between words; none after the last word.
+        if (wordIndex < words.length - 1) {
+          line.appendChild(document.createTextNode(' '));
+          charIndex += 1;
+        }
       });
     });
 
@@ -251,11 +294,13 @@
         (entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              const lines = entry.target.querySelectorAll('.ht-line');
-              lines.forEach(line => {
-                line.querySelectorAll('span').forEach(span => {
-                  span.style.opacity = '1';
-                  span.style.transform = 'translateY(0)';
+              whenReady(() => {
+                const lines = entry.target.querySelectorAll('.ht-line');
+                lines.forEach(line => {
+                  line.querySelectorAll('span').forEach(span => {
+                    span.style.opacity = '1';
+                    span.style.transform = 'translateY(0)';
+                  });
                 });
               });
               letterObserver.unobserve(entry.target);
