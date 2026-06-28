@@ -40,9 +40,22 @@
   --text-muted: var(--gray-500);
   --border-color: rgba(255, 255, 255, 0.08);
 
+  /* Extended brand ramp */
+  --purple-300: #c8acff;
+  --aqua-300: #9cf3ff;
+
   /* Gradients */
-  --gradient-hero: linear-gradient(135deg, var(--purple), var(--aqua));
+  --gradient-hero: linear-gradient(120deg, var(--purple-600) 0%, var(--purple) 42%, var(--aqua) 100%);
   --gradient-accent: linear-gradient(115deg, var(--accent-energy), var(--accent-trust));
+  --gradient-text: linear-gradient(100deg, var(--purple-300) 0%, var(--purple) 35%, var(--aqua) 80%, var(--aqua-300) 100%);
+  --gradient-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0) 60%);
+
+  /* Glass + glow (premium surfaces) */
+  --glass-bg: rgba(20, 21, 27, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.10);
+  --hairline: rgba(255, 255, 255, 0.08);
+  --glow-purple: 0 0 80px rgba(168, 119, 254, 0.28);
+  --glow-aqua: 0 0 70px rgba(90, 234, 254, 0.22);
 
   /* Typography Scale (2026 Bold Headlines) */
   --font-display: 'Sora', system-ui, -apple-system, sans-serif;
@@ -133,6 +146,42 @@ body {
   color: var(--text-primary);
   background: var(--bg-primary);
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Ambient aurora — a fixed, slowly drifting field of brand light that sits
+   behind everything. The single biggest lift toward a premium feel. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -20vmax;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(38vmax 38vmax at 12% 8%, rgba(122, 78, 255, 0.22), transparent 60%),
+    radial-gradient(34vmax 34vmax at 88% 18%, rgba(90, 234, 254, 0.16), transparent 62%),
+    radial-gradient(40vmax 40vmax at 75% 92%, rgba(168, 119, 254, 0.16), transparent 60%),
+    radial-gradient(30vmax 30vmax at 20% 85%, rgba(44, 217, 240, 0.10), transparent 60%);
+  filter: saturate(120%);
+  animation: aurora-drift 26s ease-in-out infinite alternate;
+}
+
+/* Fine film grain — kills banding on the gradients and reads as expensive. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes aurora-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(2%, -2%, 0) scale(1.08); }
+  100% { transform: translate3d(-2%, 1%, 0) scale(1.04); }
 }
 
 /* ================================================================
@@ -181,6 +230,12 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   margin-bottom: 1rem;
   overflow-wrap: break-word;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+h1, .title-lg, .hero-title {
+  letter-spacing: -0.035em;
 }
 
 h1 { font-size: var(--text-6xl); }
@@ -287,15 +342,20 @@ a:hover {
   left: 0;
   right: 0;
   z-index: var(--z-sticky);
-  background: var(--bg-primary);
-  border-bottom: 1px solid var(--border-color);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: transform var(--duration-base) var(--ease);
+  background: rgba(10, 11, 13, 0.45);
+  border-bottom: 1px solid transparent;
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  transition: transform var(--duration-base) var(--ease),
+              background var(--duration-base) var(--ease),
+              border-color var(--duration-base) var(--ease),
+              box-shadow var(--duration-base) var(--ease);
 }
 
 .site-header[data-scrolled] {
-  box-shadow: var(--shadow-md);
+  background: rgba(10, 11, 13, 0.72);
+  border-bottom-color: var(--hairline);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
 .site-header .container {
@@ -418,6 +478,31 @@ a:hover {
   overflow: hidden;
 }
 
+/* Soft brand halo bloom behind the hero headline */
+.hero::before {
+  content: '';
+  position: absolute;
+  width: min(900px, 90vw);
+  aspect-ratio: 1;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(168, 119, 254, 0.20), rgba(90, 234, 254, 0.08) 45%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: halo-pulse 9s ease-in-out infinite alternate;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes halo-pulse {
+  from { opacity: 0.7; transform: translate(-50%, -50%) scale(0.95); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+}
+
 .cursor-spot {
   position: absolute;
   inset: 0;
@@ -453,11 +538,18 @@ a:hover {
 }
 
 .gradient-text {
-  background: var(--gradient-hero);
+  background: var(--gradient-text);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
+  animation: text-sheen 8s ease-in-out infinite alternate;
+}
+
+@keyframes text-sheen {
+  from { background-position: 0% center; }
+  to   { background-position: 100% center; }
 }
 
 .hero-lead {
@@ -520,35 +612,60 @@ a:hover {
   overflow: hidden;
 }
 
+/* Shine sweep that travels across the pill on hover */
 .cta-pill::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: var(--gradient-hero);
-  opacity: 0;
-  transition: opacity var(--duration-slow) var(--ease);
-  z-index: -1;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: skewX(-18deg);
+  transition: left 0.6s var(--ease);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cta-pill:hover::before {
+  left: 140%;
 }
 
 .cta-pill.primary {
-  background: var(--gray-800);
+  background: var(--gradient-hero);
+  background-size: 180% auto;
+  background-position: left center;
   color: var(--white);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 10px 30px rgba(122, 78, 255, 0.35), var(--glow-purple);
+  transition: transform var(--duration-base) var(--ease),
+              box-shadow var(--duration-base) var(--ease),
+              background-position var(--duration-slow) var(--ease);
 }
 
-.cta-pill.primary:hover::before {
-  opacity: 1;
+.cta-pill.primary:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(122, 78, 255, 0.45), var(--glow-aqua);
 }
 
 .cta-pill.secondary {
-  background: transparent;
+  background: rgba(90, 234, 254, 0.04);
   color: var(--aqua);
-  border-color: var(--aqua);
+  border-color: rgba(90, 234, 254, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .cta-pill.secondary:hover {
-  background: var(--aqua);
-  color: var(--gray-900);
+  background: rgba(90, 234, 254, 0.12);
+  border-color: var(--aqua);
+  color: var(--aqua-300);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(90, 234, 254, 0.22);
 }
 
 .cta-pill[data-magnetic] {
@@ -572,13 +689,27 @@ a:hover {
 }
 
 .overline {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   font-size: var(--text-sm);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--aqua);
+  letter-spacing: 0.22em;
+  color: var(--aqua-300);
   margin-bottom: 1rem;
+}
+
+.overline::before,
+.overline::after {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--aqua));
+}
+
+.overline::after {
+  background: linear-gradient(90deg, var(--aqua), transparent);
 }
 
 .title-lg {
@@ -608,16 +739,25 @@ a:hover {
 }
 
 .project-card {
-  background: var(--bg-card);
+  background: var(--glass-bg);
+  border: 1px solid var(--hairline);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05),
+              0 24px 50px -30px rgba(0, 0, 0, 0.8);
   transition: transform var(--duration-base) var(--ease),
-              box-shadow var(--duration-base) var(--ease);
+              box-shadow var(--duration-base) var(--ease),
+              border-color var(--duration-base) var(--ease);
 }
 
 .project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-10px);
+  border-color: rgba(168, 119, 254, 0.40);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08),
+              0 40px 70px -28px rgba(0, 0, 0, 0.85),
+              var(--glow-purple);
 }
 
 .project-visual {
@@ -678,10 +818,12 @@ a:hover {
 }
 
 .project-tags li {
-  padding: 0.25rem 0.75rem;
-  background: var(--gray-800);
+  padding: 0.3rem 0.85rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--hairline);
   border-radius: var(--radius-pill);
   font-size: var(--text-xs);
+  letter-spacing: 0.02em;
   color: var(--text-secondary);
 }
 
@@ -691,7 +833,9 @@ a:hover {
 
 .about {
   padding-block: var(--section-gap);
-  background: var(--bg-secondary);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 30%);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
 }
 
 .about-content {
@@ -703,13 +847,30 @@ a:hover {
 
 .about-principle {
   padding: 2rem;
-  background: var(--bg-card);
+  background: var(--glass-bg);
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--hairline);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: transform var(--duration-base) var(--ease),
+              border-color var(--duration-base) var(--ease),
+              box-shadow var(--duration-base) var(--ease);
+}
+
+.about-principle:hover {
+  transform: translateY(-6px);
+  border-color: rgba(90, 234, 254, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), var(--glow-aqua);
 }
 
 .about-principle h3 {
-  color: var(--aqua);
+  font-size: var(--text-xl);
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
   margin-bottom: 1rem;
 }
 
@@ -784,7 +945,8 @@ a:hover {
 
 .contact {
   padding-block: var(--section-gap);
-  background: var(--bg-secondary);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 30%);
+  border-top: 1px solid var(--hairline);
 }
 
 .contact-content {
@@ -837,21 +999,25 @@ a:hover {
 .form-group input,
 .form-group select,
 .form-group textarea {
-  padding: 0.875rem 1rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
+  padding: 0.95rem 1.1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
   color: var(--text-primary);
   font-family: inherit;
   font-size: var(--text-base);
-  transition: border-color var(--duration-base) var(--ease);
+  transition: border-color var(--duration-base) var(--ease),
+              box-shadow var(--duration-base) var(--ease),
+              background var(--duration-base) var(--ease);
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--aqua);
+  border-color: rgba(90, 234, 254, 0.6);
+  background: rgba(90, 234, 254, 0.04);
+  box-shadow: 0 0 0 4px rgba(90, 234, 254, 0.12);
 }
 
 .form-group textarea {
