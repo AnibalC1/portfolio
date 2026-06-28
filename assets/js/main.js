@@ -210,6 +210,70 @@
   }
 
   // ================================================================
+  // Hero Particle Field (atmospheric drifting motes)
+  // ================================================================
+
+  const particleLayer = document.querySelector('[data-particles]');
+
+  if (particleLayer && !reduceMotion) {
+    const COUNT = 22;
+    const colors = ['var(--purple-300)', 'var(--aqua-300)', 'rgba(255, 255, 255, 0.85)'];
+    const fragment = document.createDocumentFragment();
+
+    for (let i = 0; i < COUNT; i += 1) {
+      const mote = document.createElement('span');
+      mote.className = 'mote';
+      const size = (1.5 + Math.random() * 2.5).toFixed(1);
+      const duration = 8 + Math.random() * 10;
+
+      mote.style.left = `${(Math.random() * 100).toFixed(2)}%`;
+      mote.style.top = `${(Math.random() * 100).toFixed(2)}%`;
+      mote.style.width = `${size}px`;
+      mote.style.height = `${size}px`;
+      mote.style.color = colors[i % colors.length];
+      mote.style.setProperty('--mote-opacity', (0.3 + Math.random() * 0.5).toFixed(2));
+      mote.style.animationDuration = `${duration.toFixed(1)}s`;
+      mote.style.animationDelay = `${(-Math.random() * duration).toFixed(1)}s`;
+
+      fragment.appendChild(mote);
+    }
+
+    particleLayer.appendChild(fragment);
+  }
+
+  // ================================================================
+  // Scroll-Reactive Hero (content dissolves + parallaxes on scroll out)
+  // ================================================================
+
+  const heroSection = document.querySelector('.hero');
+  const heroContent = heroSection?.querySelector('.container');
+  const heroGridLayer = heroSection?.querySelector('.hero-grid');
+
+  if (heroSection && heroContent && !reduceMotion) {
+    let heroTicking = false;
+
+    const updateHeroScroll = () => {
+      const height = heroSection.offsetHeight || 1;
+      const y = window.scrollY;
+      const progress = Math.min(y / height, 1);
+
+      heroContent.style.transform = `translateY(${y * 0.25}px)`;
+      heroContent.style.opacity = String(Math.max(0, 1 - progress * 1.15));
+      if (heroGridLayer) {
+        heroGridLayer.style.opacity = String(0.55 + progress * 0.4);
+      }
+      heroTicking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!heroTicking) {
+        raf(updateHeroScroll);
+        heroTicking = true;
+      }
+    }, { passive: true });
+  }
+
+  // ================================================================
   // Scroll Reveal Animations (IntersectionObserver)
   // ================================================================
 
