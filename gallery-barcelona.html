@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Barcelona, Spain — Travel Photography by Anibal Cabral">
+  <meta name="author" content="Anibal Cabral">
+
+  <meta property="og:title" content="Barcelona, Spain — Anibal Cabral Photography">
+  <meta property="og:description" content="Travel photos from Barcelona, Spain">
+  <meta property="og:type" content="website">
+
+  <title>Barcelona, Spain — Anibal Cabral</title>
+
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .gallery-hero {
+      padding: 8rem 0 4rem;
+      text-align: center;
+    }
+    .gallery-hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 0.5rem;
+    }
+    .gallery-hero .location-tag {
+      display: inline-block;
+      background: linear-gradient(135deg, #7c3aed, #06b6d4);
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 2rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .gallery-hero .photo-count {
+      color: var(--text-muted, #666);
+      font-size: 1rem;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      padding: 2rem;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover {
+      transform: scale(1.02);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.active {
+      display: flex;
+    }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 0.5rem;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      line-height: 1;
+    }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 1rem;
+      border-radius: 50%;
+    }
+    .lightbox-nav.prev { left: 1rem; }
+    .lightbox-nav.next { right: 1rem; }
+    .lightbox-counter {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 1rem;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted, #666);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      padding: 1rem 2rem;
+    }
+    .back-link:hover {
+      color: var(--text-primary, #333);
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" data-header>
+    <div class="container">
+      <a href="/" class="logo" aria-label="Anibal Cabral Home">
+        <span class="logo-text">AC</span>
+      </a>
+      <nav class="main-nav" data-nav>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="index.html#work">Work</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <a href="index.html" class="back-link">← Back to Home</a>
+
+    <section class="gallery-hero">
+      <span class="location-tag">Barcelona, Spain</span>
+      <h1>Barcelona Trip</h1>
+      <p class="photo-count">53 Photos • June 2026</p>
+    </section>
+
+    <div class="gallery-grid" id="gallery">
+    </div>
+
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" aria-label="Close">&times;</button>
+      <button class="lightbox-nav prev" aria-label="Previous">&#8249;</button>
+      <img src="" alt="Gallery photo" id="lightbox-img">
+      <button class="lightbox-nav next" aria-label="Next">&#8250;</button>
+      <div class="lightbox-counter" id="lightbox-counter"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 Anibal Cabral. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const photos = [
+      "img-1782667533414-ck1s.jpg",
+      "img-1782667533456-f46t.jpg",
+      "img-1782667533482-mll6.jpg",
+      "img-1782667534735-2qn2.jpg",
+      "img-1782667534771-p6bu.jpg",
+      "img-1782667534931-6qaq.jpg",
+      "img-1782667534997-ccp3.jpg",
+      "img-1782667535029-j3q8.jpg",
+      "img-1782667535163-z6x0.jpg",
+      "img-1782667580489-w0wm.jpg",
+      "img-1782667580883-5wcw.jpg",
+      "img-1782667580916-r7es.jpg",
+      "img-1782667581501-19rb.jpg",
+      "img-1782667581532-ars9.jpg",
+      "img-1782667582096-pdow.jpg",
+      "img-1782667582232-76kt.jpg",
+      "img-1782667582451-agpt.jpg",
+      "img-1782667582656-cidh.jpg",
+      "img-1782667685798-f4xx.jpg",
+      "img-1782667685994-ntb9.jpg",
+      "img-1782667686019-rr6m.jpg",
+      "img-1782667686138-bir1.jpg",
+      "img-1782667686169-onki.jpg",
+      "img-1782667686425-3wr4.jpg",
+      "img-1782667749808-r3o1.jpg",
+      "img-1782667750226-y67e.jpg",
+      "img-1782667750278-132l.jpg",
+      "img-1782667750310-8z12.jpg",
+      "img-1782667750418-dc7p.jpg",
+      "img-1782667750877-84hr.jpg",
+      "img-1782667839467-hywc.jpg",
+      "img-1782667839724-41gw.jpg",
+      "img-1782667840358-5wqv.jpg",
+      "img-1782667840487-krox.jpg",
+      "img-1782667840692-5d1m.jpg",
+      "img-1782667876214-6npn.jpg",
+      "img-1782667876896-kcgp.jpg",
+      "img-1782667877093-qryy.jpg",
+      "img-1782667877519-bky6.jpg",
+      "img-1782667878127-00wn.jpg",
+      "img-1782667878159-od00.jpg",
+      "img-1782667965006-azdl.jpg",
+      "img-1782667965072-pksv.jpg",
+      "img-1782667965263-kak7.jpg",
+      "img-1782667965665-m35r.jpg",
+      "img-1782667965688-9cps.jpg",
+      "img-1782667966174-mnlb.jpg",
+      "img-1782668228218-x3hx.jpg",
+      "img-1782668228772-eand.jpg",
+      "img-1782668228816-6kd7.jpg",
+      "img-1782668229349-zfma.jpg",
+      "img-1782668229611-g42v.jpg",
+      "img-1782668229756-d287.jpg"
+    ];
+
+    const basePath = "assets/images/gallery/barcelona-spain/";
+    const gallery = document.getElementById("gallery");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxCounter = document.getElementById("lightbox-counter");
+    let currentIndex = 0;
+
+    // Build gallery
+    photos.forEach((photo, index) => {
+      const item = document.createElement("div");
+      item.className = "gallery-item";
+      item.innerHTML = `<img src="${basePath}${photo}" alt="Barcelona, Spain - Photo ${index + 1}" loading="lazy">`;
+      item.addEventListener("click", () => openLightbox(index));
+      gallery.appendChild(item);
+    });
+
+    function openLightbox(index) {
+      currentIndex = index;
+      updateLightbox();
+      lightbox.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    function updateLightbox() {
+      lightboxImg.src = basePath + photos[currentIndex];
+      lightboxImg.alt = `Barcelona, Spain - Photo ${currentIndex + 1}`;
+      lightboxCounter.textContent = `${currentIndex + 1} / ${photos.length}`;
+    }
+
+    function navigate(direction) {
+      currentIndex = (currentIndex + direction + photos.length) % photos.length;
+      updateLightbox();
+    }
+
+    document.querySelector(".lightbox-close").addEventListener("click", closeLightbox);
+    document.querySelector(".lightbox-nav.prev").addEventListener("click", () => navigate(-1));
+    document.querySelector(".lightbox-nav.next").addEventListener("click", () => navigate(1));
+
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (!lightbox.classList.contains("active")) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") navigate(-1);
+      if (e.key === "ArrowRight") navigate(1);
+    });
+  </script>
+
+</body>
+</html>
