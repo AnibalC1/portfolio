@@ -31,6 +31,8 @@
 
   const lerp = (start, end, factor) => start + (end - start) * factor;
 
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // ================================================================
   // Loading Animation
   // ================================================================
@@ -174,6 +176,40 @@
   }
 
   // ================================================================
+  // Hero Parallax (background layers drift with the pointer)
+  // ================================================================
+
+  const parallaxEl = document.querySelector('[data-parallax]');
+
+  if (parallaxEl && !reduceMotion && window.matchMedia('(pointer: fine)').matches) {
+    let px = 0;
+    let py = 0;
+    let parallaxTicking = false;
+
+    const applyParallax = () => {
+      parallaxEl.style.setProperty('--px', px.toFixed(3));
+      parallaxEl.style.setProperty('--py', py.toFixed(3));
+      parallaxTicking = false;
+    };
+
+    parallaxEl.addEventListener('mousemove', (e) => {
+      const rect = parallaxEl.getBoundingClientRect();
+      px = (e.clientX - rect.left) / rect.width - 0.5;
+      py = (e.clientY - rect.top) / rect.height - 0.5;
+      if (!parallaxTicking) {
+        raf(applyParallax);
+        parallaxTicking = true;
+      }
+    }, { passive: true });
+
+    parallaxEl.addEventListener('mouseleave', () => {
+      px = 0;
+      py = 0;
+      raf(applyParallax);
+    });
+  }
+
+  // ================================================================
   // Scroll Reveal Animations (IntersectionObserver)
   // ================================================================
 
@@ -253,56 +289,42 @@
   letterElements.forEach(el => {
     const lines = el.querySelectorAll('.ht-line');
 
-    lines.forEach((line, lineIndex) => {
+    // Split each line into per-word spans (cinematic word-rise). A running
+    // index across the element drives the stagger via the --wi custom prop.
+    let wordIndex = 0;
+    lines.forEach(line => {
       const text = line.textContent;
       line.textContent = '';
+      line.classList.add('ht-words');
 
-      // Group characters into per-word wrappers so the line can wrap at the
-      // spaces between words (keeping each word intact) while still animating
-      // letter-by-letter. Splitting into bare per-character spans removes every
-      // line-break opportunity, which forces the whole line onto one line and
-      // overflows narrow screens.
-      let charIndex = 0;
       const words = text.split(' ');
-      words.forEach((word, wordIndex) => {
+      words.forEach((word, idx) => {
         const wordSpan = document.createElement('span');
         wordSpan.className = 'ht-word';
-
-        Array.from(word).forEach(char => {
-          const span = document.createElement('span');
-          span.textContent = char;
-          span.style.opacity = '0';
-          span.style.transform = 'translateY(20px)';
-          span.style.transition = `opacity 0.3s ease ${(charIndex * 0.03)}s, transform 0.3s ease ${(charIndex * 0.03)}s`;
-          wordSpan.appendChild(span);
-          charIndex += 1;
-        });
-
+        wordSpan.textContent = word;
+        wordSpan.style.setProperty('--wi', wordIndex);
         line.appendChild(wordSpan);
 
         // Real (breakable) space between words; none after the last word.
-        if (wordIndex < words.length - 1) {
+        if (idx < words.length - 1) {
           line.appendChild(document.createTextNode(' '));
-          charIndex += 1;
         }
+        wordIndex += 1;
       });
     });
 
-    // Trigger animation when visible
-    if ('IntersectionObserver' in window) {
+    const reveal = () => el.querySelectorAll('.ht-words').forEach(line => {
+      line.classList.add('is-in');
+    });
+
+    if (reduceMotion) {
+      reveal();
+    } else if ('IntersectionObserver' in window) {
       const letterObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              whenReady(() => {
-                const lines = entry.target.querySelectorAll('.ht-line');
-                lines.forEach(line => {
-                  line.querySelectorAll('span').forEach(span => {
-                    span.style.opacity = '1';
-                    span.style.transform = 'translateY(0)';
-                  });
-                });
-              });
+              whenReady(reveal);
               letterObserver.unobserve(entry.target);
             }
           });
@@ -312,11 +334,7 @@
 
       letterObserver.observe(el);
     } else {
-      // Fallback: show immediately
-      el.querySelectorAll('span').forEach(span => {
-        span.style.opacity = '1';
-        span.style.transform = 'translateY(0)';
-      });
+      reveal();
     }
   });
 

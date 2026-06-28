@@ -478,29 +478,91 @@ a:hover {
   overflow: hidden;
 }
 
-/* Soft brand halo bloom behind the hero headline */
+/* Soft brand halo bloom behind the hero headline (parallax via --px/--py) */
 .hero::before {
   content: '';
   position: absolute;
   width: min(900px, 90vw);
   aspect-ratio: 1;
-  top: 42%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(168, 119, 254, 0.20), rgba(90, 234, 254, 0.08) 45%, transparent 70%);
+  left: calc(50% + var(--px, 0) * 50px);
+  top: calc(42% + var(--py, 0) * 50px);
+  translate: -50% -50%;
+  background: radial-gradient(circle, rgba(168, 119, 254, 0.22), rgba(90, 234, 254, 0.08) 45%, transparent 70%);
   pointer-events: none;
   z-index: 0;
+  transition: left 0.4s var(--ease-out), top 0.4s var(--ease-out);
   animation: halo-pulse 9s ease-in-out infinite alternate;
 }
 
 .hero .container {
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 
 @keyframes halo-pulse {
-  from { opacity: 0.7; transform: translate(-50%, -50%) scale(0.95); }
-  to   { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+  from { opacity: 0.65; scale: 0.95; }
+  to   { opacity: 1; scale: 1.08; }
+}
+
+/* Perspective light-grid floor receding into the distance */
+.hero-grid {
+  position: absolute;
+  left: -25%;
+  right: -25%;
+  bottom: -2%;
+  height: 62%;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(168, 119, 254, 0.16) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(90, 234, 254, 0.13) 1px, transparent 1px);
+  background-size: 64px 64px;
+  transform: perspective(420px) rotateX(62deg);
+  transform-origin: bottom center;
+  translate: calc(var(--px, 0) * -24px) 0;
+  transition: translate 0.4s var(--ease-out);
+  -webkit-mask-image: radial-gradient(120% 100% at 50% 100%, #000 30%, transparent 78%);
+  mask-image: radial-gradient(120% 100% at 50% 100%, #000 30%, transparent 78%);
+  opacity: 0.55;
+  animation: grid-flow 7s linear infinite;
+}
+
+@keyframes grid-flow {
+  from { background-position: 0 0; }
+  to   { background-position: 0 64px; }
+}
+
+/* One-time cinematic light sweep across the hero on entrance */
+.hero-sweep {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    74deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.05) 47%,
+    rgba(168, 119, 254, 0.12) 50%,
+    rgba(90, 234, 254, 0.08) 53%,
+    transparent 62%
+  );
+  opacity: 0;
+  animation: hero-sweep 2.6s var(--ease-out) 0.35s both;
+}
+
+@keyframes hero-sweep {
+  0%   { opacity: 0; transform: translateX(-55%); }
+  25%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(55%); }
+}
+
+/* Filmic vignette to frame the composition */
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(125% 95% at 50% 38%, transparent 52%, rgba(0, 0, 0, 0.55) 100%);
 }
 
 .cursor-spot {
@@ -529,12 +591,38 @@ a:hover {
   display: block;
 }
 
-/* Per-word wrapper for the letter-by-letter animation. Real spaces between
-   words give the line break opportunities (so it wraps at word boundaries on
-   narrow screens) while each word stays intact. Kept inline so gradient-text
-   lines using background-clip:text still paint through the letters. */
+/* Cinematic word-rise: each word is an inline-block that lifts up and pulls
+   into focus from a blur, staggered by --wi. Real spaces between words keep
+   wrapping at word boundaries on narrow screens. The hidden/animated state
+   only applies once JS adds .ht-words, so no-JS shows plain text. */
 .ht-word {
-  display: inline;
+  display: inline-block;
+}
+
+.ht-words .ht-word {
+  opacity: 0;
+  transform: translateY(0.6em);
+  filter: blur(12px);
+  transition: opacity 0.9s var(--ease-out),
+              transform 0.9s var(--ease-out),
+              filter 0.9s var(--ease-out);
+  transition-delay: calc(var(--wi, 0) * 0.07s);
+  will-change: transform, opacity, filter;
+}
+
+.ht-words.is-in .ht-word {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Gradient applied per-word so inline-block words still render the clip. */
+.gradient-text .ht-word {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .gradient-text {
@@ -551,6 +639,11 @@ a:hover {
   from { background-position: 0% center; }
   to   { background-position: 100% center; }
 }
+
+/* Staged entrance: lead, CTAs and scroll cue cascade in after the headline */
+.hero .hero-lead[data-reveal] { transition-delay: 0.85s; }
+.hero .hero-cta[data-reveal] { transition-delay: 1.05s; }
+.hero .scroll-indicator[data-reveal] { transition-delay: 1.4s; }
 
 .hero-lead {
   max-width: 720px;
