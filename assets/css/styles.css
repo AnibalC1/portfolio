@@ -755,6 +755,7 @@ a:hover {
 }
 
 .phase-number {
+  grid-column: 1;
   width: 80px;
   height: 80px;
   display: grid;
@@ -767,10 +768,12 @@ a:hover {
 }
 
 .phase h3 {
+  grid-column: 2;
   margin-bottom: 0.75rem;
 }
 
 .phase p {
+  grid-column: 2;
   color: var(--text-secondary);
   margin: 0;
 }
